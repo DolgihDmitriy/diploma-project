@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <link rel="shortcut icon"
+          th:href="@{https://w7.pngwing.com/pngs/548/737/png-transparent-peterbilt-semi-trailer-truck-truck.png}"
+          type="image/x-icon">
+    <title>
+     success
+    </title>
+    <!-- CSS only -->
+    <div th:replace="fragments/header::header-css"></div>
+    <div th:replace="fragments/header::header-fr"></div>
+</head>
+<body>
+<div class="page">
+<div th:if="${isCreateCargo}">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+        <hr>
+        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+    </div>
+</div>
+<div th:replace="fragments/footer::footer-fr"></div>
+</div>
+</body>
+</html>

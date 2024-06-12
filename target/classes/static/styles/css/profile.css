@@ -1,0 +1,16 @@
+.page{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 95vh;
+}
+.footer {
+    margin-top: auto;
+}
+img .card-body .text-center. {
+    width: 100px;
+}
+
+td a{
+    position: relative;
+}

@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>400</title>
+    <div th:replace="fragments/header::header-fr"></div>
+    <div th:replace="fragments/header::header-css"></div>
+</head>
+<body>
+<div class="page">
+
+    <div class="pb-3 alert alert-secondary mx-auto custom-alert d-flex align-items-center justify-content-center custom-alert"
+         type="alert">
+
+        <h2>You did not have suitable cargo for the selected type of transport<br>Choose other transport<br>
+            <p>
+                <br>
+                <a th:href="@{/transports}" type="button" class="btn btn-outline-info btn-lg">Find transport</a>
+            </p>
+            <!--<span th:class="text-black" th:text="${id}"></span>-->
+        </h2>
+        <br>
+        <img th:src="@{/img/icons/transport.png}" alt="Изображение груза">
+    </div>
+
+    <div th:replace="fragments/footer::footer-fr"></div>
+</div>
+</body>
+</html>

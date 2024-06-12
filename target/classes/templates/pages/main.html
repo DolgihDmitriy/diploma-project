@@ -1,0 +1,67 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <link rel="shorcut icon" th:src="@{//cdn-icons-png.flaticon.com/512/3566/3566665.png}">
+    <title>web-trans</title>
+    <!-- CSS only -->
+    <div th:replace="fragments/header::header-css"></div>
+    <div th:replace="fragments/header::header-fr"></div>
+    <link rel="stylesheet" th:href="@{/styles/css/style.css}" media="all" type="text/css">
+    <script type="text/javascript" src="/static/styles/js/countUp.js"></script>
+
+</head>
+<body>
+<div class="page">
+
+<section class="py-5 text-center container">
+    <div class="row py-lg-3">
+        <div class="col-lg-7 col-md-8 mx-auto">
+            <a  class="btn btn-outline-secondary disabled mb-5 py-2   btn-lg text-capitalize text-black font-monospace"
+                >Total cargo:
+                <span  id="cargo" th:text="${countAllCargo}"></span>
+            </a>
+            <a class="mx-4 btn btn-outline-secondary disabled mb-5 py-2   btn-lg text-capitalize text-black font-monospace"
+               >Total transport:
+                <span  id="ts"th:text="${countAllTransport}"> </span>
+            </a>
+            <a class="btn btn-outline-secondary disabled mb-5 py-2 px-3  btn-lg text-capitalize text-black font-monospace"
+               >Total Users:
+                <span  id="user"th:text="${countAllUser}"> </span>
+            </a>
+            <h1 class="fw-light mt-5">WEB-Trans</h1>
+            <div class="lead text-muted">A web-trans site that helps us track and book cargo and transport.
+                You can post your vehicles and cargo for more convenient work with customers and contractors.<br>
+            </div>
+            <p class="glyphicon-bold text-capitalize"> Successful work!</p>
+            <p>
+                <a th:href="@{/cargo}" type="button" class="btn btn-outline-info">Find cargo</a>
+                <a th:href="@{/transports}" type="button" class="btn btn-outline-info">Find transport</a>
+            </p>
+
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript" src="https://bootstraptema.ru/plugins/2015/countup/countUp.min.js"></script>
+<div th:replace="fragments/footer::footer-fr"></div>
+</div>
+</body>
+<script>
+    var ts = [[${countAllTransport}]];
+var cargo = [[${countAllCargo}]];
+var user = [[${countAllUser}]];
+var options = {
+    useEasing : true,
+    useGrouping : true,
+    separator : ',',
+    decimal : '.',
+    prefix : '',
+    suffix : ''
+};
+var counter = new CountUp("cargo", 0, cargo, 0, 5.5, options);
+counter.start();
+var counters = new CountUp("ts", 0, ts, 0, 5.5, options);
+counters.start();
+var countUser = new CountUp("user", 0, user, 0, 5.5, options);
+countUser.start();
+</script>
+</html>

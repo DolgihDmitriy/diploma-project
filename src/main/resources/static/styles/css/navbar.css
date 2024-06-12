@@ -1,0 +1,39 @@
+h1 {
+    text-align: center;
+}
+.navbar-fr{
+    background: antiquewhite;
+}
+.navbar-brand #truck-icon {
+    margin-left: 5px;
+}
+
+nav a {
+    float: right;
+    margin: 0 5px;
+}
+
+.block-homepage {
+    text-align: center;
+}
+
+form {
+    margin-block-end: 0;
+}
+
+.form-check {
+    display: inline;
+}
+
+.text-lg-start {
+    padding: 10px
+}
+
+.success {
+    background-color: #ddffdd;
+    border-left: 6px solid #4CAF50;
+}
+
+.footer {
+    background-color: #21081a;
+}

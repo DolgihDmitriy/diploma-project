@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>list transport</title>
+    <div th:replace="fragments/header::header-css"></div>
+    <div th:replace="fragments/header::header-fr"></div>
+    <link rel="stylesheet" th:href="@{/styles/css/lists.css}" media="all" type="text/css">
+
+</head>
+<body>
+<div th:unless="${listActiveTransports.size() != 0}">
+
+    <div class="text-center alert alert-info">
+        Dont have info!
+    </div>
+</div>
+<div th:if="${listActiveTransports.size() != 0}">
+
+<div th:if="${notExists}" class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">You dont have transport!</h4>
+    <p>You can add transport right now!</p>
+    <hr>
+    <p class="mb-0"><a th:href="@{/users/{id}/transport/add (id = ${user.id})}"
+                       class="btn btn-outline-primary my-1">Add</a></p>
+</div>
+<div class="page">
+    <div th:if="${notExists} == false">
+        <table class="table table-hover table-info table-bordered table-sm">
+            <thead class="table-group-divider table-light">
+            <tr>
+                <div class="head-table">
+                    <th scope="col">Name</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Capacity Load (Max)</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">Panel</th>
+                </div>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="t:${listActiveTransports}">
+                <td th:text="${t.name}">
+                <td th:text="${t.type}">
+                <td th:text="${t.maxCapacityLoad}">
+                <td th:if="${t.isFree}">
+                    Free
+                </td>
+                <td th:unless="${t.isFree}">
+                    Busy
+                </td>
+                <td>
+                    <div th:text="${t.user.activity.value}"></div>
+                    <a th:href="@{/users/{user_id}/profile(user_id = ${t.user.id})}"
+                       th:text="${t.user.nameCompany}"></a>
+                </td>
+                <td>
+                    <div th:unless="${#authentication.getName() == t.user.email}">
+                        <form th:action="@{/orders/transports/{ts_id}/book(ts_id = ${t.id})}" th:method="post">
+                            <button type="submit" class="badge btn-primary">send offer</button>
+                        </form>
+                    </div>
+
+                    <div th:if="${user.email == #request.userPrincipal.getName()} or ${#request.isUserInRole('ADMIN')}">
+                        <form th:action="@{/users/{user_id}/transports/remove/{transport_id} (transport_id = ${t.id},user_id = ${user.id})}"
+                              method="get">
+                            <button type="submit" class="badge badge-danger">delete</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+<!--    <div class="row" th:fragment="pagination">-->
+<!--        <div class="col-md-2"></div>-->
+<!--        <div class="col-md-8">-->
+<!--            <nav aria-label="Pagination">-->
+<!--                <ul class="pagination justify-content-center">-->
+<!--                    <li class="page-item" th:each="pageNumber : ${pageNumbers}">-->
+<!--                        <div th:if="${pageNumber} == ${transportPage}">-->
+<!--                            <a class="page-link active"-->
+<!--                               th:text="${pageNumber}"></a>-->
+<!--                        </div>-->
+<!--                        <div th:unless="${pageNumber} == ${transportPage}">-->
+<!--                            &lt;!&ndash;                            <li th:class="page-item">&ndash;&gt;-->
+<!--                            <a class="page-link" th:href="@{/users/{id}/transports(page=${pageNumber},id=${user_id})}"-->
+<!--                               th:text="${pageNumber}"></a>-->
+<!--                            &lt;!&ndash;                            </li>&ndash;&gt;-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </nav>-->
+<!--        </div>-->
+
+<!--    </div>-->
+    <div class="position-absolute bottom-0 start-50 translate-middle-x mb-5" th:fragment="pagination">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <nav aria-label="Pagination">
+                <ul class="pagination">
+                    <div th:if="${transportPage != 1}">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/users/{id}/transports(page=${transportPage - 1},id = ${user_id})}"
+                               th:text="${'<'}"></a>
+                        </li>
+                    </div>
+                    <div th:if="${transportPage == 1}">
+                        <li class="page-item">
+                            <a class="page-link" disabled
+                               th:text="${'<'}"></a>
+                        </li>
+                    </div>
+                    <li class="page-item">
+                        <a class="page-link active"
+                           th:text="${transportPage}"></a>
+                    </li>
+                    <div th:if="${transportPage != pageNumbers.size()}">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/users/{id}/transports(page=${transportPage+1},id = ${user_id})}"
+                               th:text="${'>'}"></a>
+                        </li>
+                    </div>
+                    <div th:if="${transportPage == pageNumbers.size()}">
+                        <li class="page-item">
+                            <a class="page-link" readonly
+                               th:text="${'>'}"></a>
+                        </li>
+                    </div>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+    <div th:replace="fragments/footer::footer-fr"></div>
+</div>
+</body>
+</html>

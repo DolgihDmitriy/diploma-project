@@ -1,0 +1,141 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Registration</title>
+    <div th:replace="fragments/header::header-css"></div>
+    <script th:src="@{/styles/js/radioButtonsLogic.js}" type="text/javascript"></script>
+    <link rel="stylesheet" th:href="@{/styles/css/lists.css}" media="all" type="text/css">
+
+</head>
+<body>
+
+<div th:replace="fragments/header::header-fr"></div>
+<!-- Section: Design Block -->
+
+<section class="">
+    <!-- Jumbotron -->
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+        <div class="container">
+            <div class="row center-block justify-content-lg-center">
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <div class="card">
+                        <div class="card-body py-5 px-md-5">
+                            <div class="row center-block justify-content-lg-center">
+                                <h4 class="text-uppercase">User registration form</h4>
+                            </div>
+                            <!--custom exception user registration status identifier-->
+                            <div class="form-floating mb-4 alert-warning">
+                                <div th:if="${message}!=null" class="alert alert-warning" role="alert">
+                                    <div th:text="${message}"></div>
+                                </div>
+                            </div>
+                            <form th:action="@{/registration}" th:object="${user}" th:method="post">
+                                <label class="mb-2">
+                                    Type
+                                    <select class="form-select-sm mb-2 mx-1" name="type"
+                                            aria-multiselectable="false" th:field="*{type}">
+                                        <option th:each="c : ${T(com.trans.model.enums.TypeUser).values()}"
+                                                th:value="${c}" th:text="${c.value}"></option>
+                                    </select>
+                                </label>
+                                <label class="mx-5 mb-2">
+                                    Country
+                                    <select class="form-select-sm mb-2 mx-1" name="country"
+                                            aria-multiselectable="false" th:field="*{country}">
+                                        <option th:each="c : ${T(com.trans.model.enums.Countries).values()}"
+                                                th:value="${c}" th:text="${c}"></option>
+                                    </select>
+                                </label>
+                                <div class="form-floating mb-4">
+                                    <input type="text" class="form-control" id="floatingInput1"
+                                    th:field="*{firstName}" placeholder="firstName" required>
+                                    <label for="floatingInput1">First Name
+                                    </label>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        <input type="text" class="form-control" id="floatingInput2"
+                                        th:field="*{lastName}" placeholder="lastName" required>
+                                        <label for="floatingInput2">Last Name
+                                        </label>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        <input type="text" class="form-control" id="floatingInput3"
+                                               th:field="*{city}" placeholder="city" required>
+                                        <label for="floatingInput3">City
+                                        </label>
+                                    </div>
+                                    <div th:if="${activity == null}">
+                                        <div class="form-floating mb-4">
+                                            <input type="text" class="form-control" id="floatingInput4" title="Example: 'Google'"
+                                                   th:field="*{nameCompany}" placeholder="nameCompany" required>
+                                            <label for="floatingInput4">Name Company
+                                            </label>
+                                        </div>
+                                    </div>
+<!--                                    hidden initialization of the activity type-->
+                                    <div th:if="${activity == null}">
+                                            <input type="text" class="form-control" th:value="${T(com.trans.model.enums.TypeActivity).COMPANY}"
+                                                   th:name="activity" placeholder="activity"  hidden>
+                                    </div>
+                                    <div th:unless="${activity == null}">
+                                            <input type="text" class="form-control" th:value="${T(com.trans.model.enums.TypeActivity).INDIVIDUAL}"
+                                                   th:name="activity" placeholder="activity"  hidden>
+                                    </div>
+
+                                    <div class="form-floating mb-4">
+                                        <input type="tel" class="form-control" id="floatingInput"
+                                               th:field="${user.number}" autocomplete="off"
+                                               placeholder="+375(29)-990-99-99" title="Example: +375(29)-999-99-99"
+                                               pattern="^(\+375)(29|25|44|33)(\d{3})(\d{2})(\d{2})$" required>
+                                        <label class="form-label" for="floatingInput">Number Phone</label>
+                                    </div>
+                                    <!-- Email input -->
+                                    <div class="form-floating mb-4">
+                                        <input type="email" id="form3Example3" class="form-control"
+                                               th:field="${user.email}"
+                                               placeholder="mail" required/>
+                                        <label class="form-label" for="form3Example3">Email address</label>
+                                    </div>
+
+                                    <!-- Password input -->
+                                    <div class="form-floating mb-4">
+                                        <input type="password" id="form3Example4" class="form-control"
+                                               placeholder="*******"
+                                               th:field="${user.password}" required/>
+                                        <label class="form-label" for="form3Example4">Password</label>
+                                    </div>
+                                    <!-- Submit button -->
+                                    <div class="form-inline">
+                                        <button type="submit" class="btn btn-primary btn-block mb-4">Register</button>
+                                        <BUTTON th:type="reset" class="btn btn-outline-secondary btn-block mb-4"
+                                                value="Reset">
+                                            Reset
+                                        </BUTTON>
+                                    </div>
+                                    <a class="my-2" th:href="@{/login} ">Already have an account?</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="fragments/footer::footer-fr"></div>
+
+<!--<input type="radio" name="tabs-radio" value="one">
+<input type="radio" name="tabs-radio" value="two">
+<input type="radio" name="tabs-radio" value="three">
+<input type="radio" name="tabs-radio" value="four">
+<input type="radio" name="tabs-radio" value="five">
+
+<div class="tabs">
+    <div data-name="one">one</div>
+    <div data-name="two">two</div>
+    <div data-name="three">three</div>
+    <div data-name="four">four</div>
+    <div data-name="five">five</div>
+</div>-->
+</body>
+</html>
