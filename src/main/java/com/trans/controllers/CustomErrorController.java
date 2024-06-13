@@ -12,7 +12,7 @@ public class CustomErrorController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ModelAndView handleMissingParams(MissingServletRequestParameterException ex) {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("pages/error/400"); // Имя вашего шаблона 400.html без расширения
+        mav.setViewName("pages/error/400");
         mav.addObject("id", ex.getParameterName());
         return mav;
     }

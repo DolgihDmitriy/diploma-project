@@ -43,7 +43,7 @@ public class OrderController {
             return modelAndView;
         }*/
     @GetMapping("/cargo/{cargo_id}/book")
-    public ModelAndView model(ModelAndView modelAndView, @PathVariable int cargo_id,
+    public ModelAndView model(ModelAndView modelAndView, @PathVariable int cargo_id, @RequestParam("page") int page,
                               @AuthenticationPrincipal CustomUserDetails userDetails) {
         Cargo cargo = cargoService.findById(cargo_id);
         modelAndView.addObject("cargo", cargo);
@@ -54,8 +54,9 @@ public class OrderController {
                         !ts.isDelete() && ts.isFree())
                 .toList();
         if (transportListOfCustomer.size() == 0 ) {
+//          modelAndView.setViewName("redirect:/cargo?page=" + page + "&error=notfound");
             modelAndView.addObject("NotFoundTransportOfCustomer", true);
-            modelAndView.setViewName("forward:/cargo");
+            modelAndView.setViewName("forward:/cargo?page=" + page);
         } else {
             modelAndView.addObject("transportListCustomer", transportListOfCustomer);
             modelAndView.setViewName("pages/transport/send");
