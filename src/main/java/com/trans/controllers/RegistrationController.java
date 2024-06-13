@@ -42,7 +42,7 @@ public class RegistrationController {
         if (TypeActivity.fromString(activity) == TypeActivity.INDIVIDUAL) {
             modelAndView.addObject("activity", TypeActivity.INDIVIDUAL);
         }
-        modelAndView.setViewName("/pages/registration");
+        modelAndView.setViewName("pages/registration");
         return modelAndView;
     }
     @PostMapping("/successLogin")
